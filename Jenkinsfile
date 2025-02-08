@@ -9,21 +9,15 @@ pipeline {
             }
         }
         stage('Build Docker Image') {
-            agent {
-                docker {
-                    image 'docker:latest'
-                    args '--privileged'  // This is required for Docker-in-Docker
+            steps {
+                script {
+                    // Use docker image to run the build
+                    docker.image('docker:latest').inside('--privileged') {
+                        sh 'docker build -t my-image .'
+                    }
                 }
             }
-            steps {
-                sh 'docker build -t my-image .'
-            }
         }
-      //   stage('Build Docker Image') {
-      //       steps {
-      //           sh 'docker build -t my-image .'
-      //       }
-      //   }
         stage('Check Docker') {
             steps {
                 sh 'which docker || echo "Docker not found!"'
@@ -43,16 +37,5 @@ pipeline {
          }
 
         }
-    
-      //   stage('Goodbye') {
-      //       steps {
-      //           echo 'Bye bye'
-      //       }
-      //   }
-      //   stage('Powershell') {
-      //       steps {
-      //           echo "Hello from Terminal!"
-      //       }
-      //   }
     }
 }
