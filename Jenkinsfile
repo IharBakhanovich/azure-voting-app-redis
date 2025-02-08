@@ -2,11 +2,14 @@ pipeline {
     agent any
 
     stages {
-        stage('Verify branch') {
+        stages {
+        stage('Checkout') {
             steps {
+                checkout scm
                 echo "Branch Name: ${env.BRANCH_NAME}"
             }
         }
+    }
       //   stage('Goodbye') {
       //       steps {
       //           echo 'Bye bye'
