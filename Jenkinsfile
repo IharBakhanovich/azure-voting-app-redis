@@ -3,12 +3,9 @@ pipeline {
 
     stages {
         
-        stage('Get Branch Name') {
+        stage('Verify branch') {
             steps {
-                script {
-                    def branch = sh(script: 'git rev-parse --abbrev-ref HEAD', returnStdout: true).trim()
-                    echo "Branch Name: ${branch}"
-                }
+                echo "$GIT_BRANCH"
             }
         }
     
