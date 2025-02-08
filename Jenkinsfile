@@ -1,16 +1,22 @@
 pipeline {
-    agent {
-        docker {
-            image 'docker:latest'
-            args '--privileged' // Required for Docker-in-Docker
-        }
-    }
+    agent any
 
     stages {
         
         stage('Verify branch') {
             steps {
                 echo "$GIT_BRANCH"
+            }
+        }
+        stage('Build Docker Image') {
+            agent {
+                docker {
+                    image 'docker:latest'
+                    args '--privileged'  // This is required for Docker-in-Docker
+                }
+            }
+            steps {
+                sh 'docker build -t my-image .'
             }
         }
       //   stage('Build Docker Image') {
