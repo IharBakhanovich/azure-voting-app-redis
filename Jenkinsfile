@@ -8,16 +8,16 @@ pipeline {
                 echo "$GIT_BRANCH"
             }
         }
-        stage('Build Docker Image') {
-            steps {
-                script {
-                    // Use docker image to run the build
-                    docker.image('docker:latest').inside('--privileged') {
-                        sh 'docker build -t my-image .'
-                    }
-                }
-            }
-        }
+      //   stage('Build Docker Image') {
+      //       steps {
+      //           script {
+      //               // Use docker image to run the build
+      //               docker.image('docker:latest').inside('--privileged') {
+      //                   sh 'docker build -t my-image .'
+      //               }
+      //           }
+      //       }
+      //   }
         stage('Check Docker') {
             steps {
                 sh 'which docker || echo "Docker not found!"'
