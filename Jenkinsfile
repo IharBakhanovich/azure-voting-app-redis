@@ -1,5 +1,10 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'docker:latest'
+            args '--privileged' // Required for Docker-in-Docker
+        }
+    }
 
     stages {
         
@@ -8,6 +13,11 @@ pipeline {
                 echo "$GIT_BRANCH"
             }
         }
+      //   stage('Build Docker Image') {
+      //       steps {
+      //           sh 'docker build -t my-image .'
+      //       }
+      //   }
         stage('Check Docker') {
             steps {
                 sh 'which docker || echo "Docker not found!"'
