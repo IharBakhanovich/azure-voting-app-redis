@@ -8,6 +8,12 @@ pipeline {
                 echo "$GIT_BRANCH"
             }
         }
+        stage('Check Docker') {
+            steps {
+                sh 'which docker || echo "Docker not found!"'
+                sh 'docker --version || echo "Docker not installed!"'
+            }
+        }
         stage("Docker Build"){
          steps{
             sh(script: 'docker images -a')
