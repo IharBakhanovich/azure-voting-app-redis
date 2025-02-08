@@ -3,10 +3,12 @@ pipeline {
 
     stages {
         
-        stage('Checkout') {
+        stage('Get Branch Name') {
             steps {
-                checkout scm
-                echo "Branch Name: ${env.BRANCH_NAME}"
+                script {
+                    def branch = sh(script: 'git rev-parse --abbrev-ref HEAD', returnStdout: true).trim()
+                    echo "Branch Name: ${branch}"
+                }
             }
         }
     
