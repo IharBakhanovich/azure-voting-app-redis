@@ -40,7 +40,7 @@ pipeline {
         stage('Start test app') {
             steps {
                sh (script: """
-                     # Start app line missing
+                     docker-compose up -d
                      ./scripts/test_container.psl
                   """)
             }
