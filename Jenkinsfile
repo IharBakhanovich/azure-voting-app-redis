@@ -39,7 +39,7 @@ pipeline {
         }
         stage('Start test app') {
             steps {
-               sh (script """"
+               sh (script """
                      # Start app line missing
                      ./scripts/test_container.psl
                   """)
@@ -55,14 +55,14 @@ pipeline {
         }
         stage('Run test') {
             steps {
-               sh (script """"
+               sh (script """
                      pytest ./test/test_sample.py
                   """)
             }
         }
         stage('Stop test app') {
             steps {
-               sh (script """"
+               sh (script """
                      docker-compose down
                   """)
             }
