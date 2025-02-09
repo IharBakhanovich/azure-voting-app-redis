@@ -24,6 +24,11 @@ pipeline {
                 sh 'docker --version || echo "Docker not installed!"'
             }
         }
+        stage('Cleanup Docker Images') {
+         steps {
+               sh 'docker rmi $(docker images -q) -f || true'
+            }
+         }
         stage("Docker Build"){
          steps{
             sh(script: 'docker images -a')
